@@ -14,9 +14,9 @@ export default {
   async authenticate(req: Request, res: Response) {
     const repository = await getRepository(User);
 
-    const { name, email, password } = req.body;
+    const { id, password } = req.body;
 
-    const user = await repository.findOne({ where: { email } });
+    const user = await repository.findOne({ where: { id } });
 
     if (!user) {
       return res.sendStatus(401);
@@ -28,18 +28,13 @@ export default {
       return res.sendStatus(401);
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
-      expiresIn: '10d'
-    })
-
     const data = {
       id: user.id,
       name: user.name,
       email: user.email,
-      token,
     }
 
-    return res.json(data)
+    return res.json({ message: "Autenticado!" })
 
   },
 
@@ -62,8 +57,8 @@ export default {
 
     const schema = Yup.object().shape({
       name: Yup.string().required('Nome obrigatório').max(20),
-      email: Yup.string().required('Email obrigatória'),
-      password: Yup.string().required('Senha obrigatório')
+      email: Yup.string().required('Email obrigatório'),
+      password: Yup.string().required('Senha obrigatória')
     });
 
     await schema.validate(data, {

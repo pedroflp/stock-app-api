@@ -1,9 +1,12 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity('products')
 export default class Product {
+  
+  @PrimaryGeneratedColumn('increment')
+  id: number;
 
-  @PrimaryColumn()
+  @Column()
   name: string;
 
   @Column()

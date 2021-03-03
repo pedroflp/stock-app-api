@@ -15,16 +15,17 @@ export default {
   },
 
   async show(req: Request, res: Response) {
-    const { title } = req.params;
+    const { id } = req.params;
     const productsRepository = getRepository(Product);
 
-    const product = await productsRepository.findOneOrFail(title);
+    const product = await productsRepository.findOneOrFail(id);
 
     return res.json(productView.render(product));
   },
 
   async create(req: Request, res: Response) {
     const {
+      id,
       name,
       quantity,
       price
@@ -33,6 +34,7 @@ export default {
     const productsRepository = getRepository(Product);
   
     const data = {
+      id,
       name,
       quantity,
       price
@@ -52,6 +54,26 @@ export default {
   
     await productsRepository.save(product);
   
-    return res.json({ message: 'Produto criado!' });
+    return res.json(data);
+  },
+
+  async edit(req: Request, res: Response) {
+    const product = await getRepository(Product).findOne(req.params.id)
+    getRepository(Product).merge(product, req.body);
+  
+    return res.json({ message: `Produto: ${id}, foi editado!` });
+  },
+
+  async delete(req: Request, res: Response){
+    await getRepository(Product).delete(req.params.id)
+
+    const {
+      name,
+    } = req.body;
+
+    const data = {
+      name,
+    }
+    return res.json({ message: `Produto: ${name} deletado`});
   }
 }

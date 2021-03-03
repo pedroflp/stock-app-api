@@ -14,10 +14,8 @@ export default function authMiddleware(req: Request, res: Response, next: NextFu
     return res.sendStatus(401);
   }
 
-  const token = authorization.replace('Bearer', '').trim();
-
   try {
-    const data = jwt.verify(token, process.env.SECRET_KEY);
+    const data = req.body;
     
     const { id } = data as TokenPayload;
 
