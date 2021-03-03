@@ -58,22 +58,22 @@ export default {
   },
 
   async edit(req: Request, res: Response) {
-    const product = await getRepository(Product).findOne(req.params.id)
-    getRepository(Product).merge(product, req.body);
+    const id = req.params.id;
+
+    const productsRepository = getRepository(Product);
+
+    const product = await productsRepository.findOneOrFail(id);
+    productsRepository.merge(product, req.body);
+
+    await getRepository(Product).save(product);
   
     return res.json({ message: `Produto: ${id}, foi editado!` });
   },
 
   async delete(req: Request, res: Response){
-    await getRepository(Product).delete(req.params.id)
+    const id = req.params.id
+    await getRepository(Product).delete(id)
 
-    const {
-      name,
-    } = req.body;
-
-    const data = {
-      name,
-    }
-    return res.json({ message: `Produto: ${name} deletado`});
+    return res.json({ message: `Produto: ${id} deletado`});
   }
 }
