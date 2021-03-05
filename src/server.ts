@@ -6,6 +6,7 @@ import routes from './routes';
 import errorHandler from './errors/handler';
 
 import './database/connection';
+import authMiddleware from './middlewares/authMiddleware';
 
 const app = express();
 

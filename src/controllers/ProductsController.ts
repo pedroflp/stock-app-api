@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
+import multer from 'multer';
 
 import Product from '../models/Product';
 import productView from '../views/products_views';
@@ -25,25 +26,28 @@ export default {
 
   async create(req: Request, res: Response) {
     const {
-      id,
       name,
       quantity,
-      price
+      price,
+      user_id
     } = req.body;
   
     const productsRepository = getRepository(Product);
   
     const data = {
-      id,
       name,
       quantity,
-      price
+      price,
+      user_id
     }
+
+    console.log(data)
 
     const schema = Yup.object().shape({
       name: Yup.string().required('Nome obrigatório').max(100),
       quantity: Yup.number().required('Quantidade obrigatória'),
-      price: Yup.number().required('Preço obrigatório')
+      price: Yup.number().required('Preço obrigatório'),
+      user_id: Yup.string().required('ID de usuário Obrigatório')
     });
 
     await schema.validate(data, {
@@ -71,8 +75,9 @@ export default {
   },
 
   async delete(req: Request, res: Response){
-    const id = req.params.id
-    await getRepository(Product).delete(id)
+    const id = req.params.id;
+
+    await getRepository(Product).delete(id);
 
     return res.json({ message: `Produto: ${id} deletado`});
   }

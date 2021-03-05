@@ -7,6 +7,7 @@ export default {
       name: product.name,
       quantity: product.quantity,
       price: product.price,
+      updated: product.updated,
     };
   },
 

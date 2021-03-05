@@ -1,10 +1,12 @@
-import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, JoinColumn, UpdateDateColumn } from 'typeorm';
+
+import User from './User';
 
 @Entity('products')
 export default class Product {
   
-  @PrimaryGeneratedColumn('increment')
-  id: number;
+  @PrimaryGeneratedColumn('uuid')
+  id: string;
 
   @Column()
   name: string;
@@ -14,4 +16,14 @@ export default class Product {
   
   @Column()
   price: number;
+
+  @UpdateDateColumn()
+  updated: Date;
+
+  @Column()
+  user_id: string;
+
+  @ManyToOne(() => User, user => user.products)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 }

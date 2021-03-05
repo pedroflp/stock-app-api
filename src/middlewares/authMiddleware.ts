@@ -1,28 +1,25 @@
 import { Request, Response, NextFunction } from 'express';
-import jwt from 'jsonwebtoken';
+import { getRepository } from 'typeorm';
+import bcrypt from 'bcryptjs';
 
-interface TokenPayload {
-  id: string;
-  iat: number;
-  exp: number;
-}
+import User from '../models/User';
 
-export default function authMiddleware(req: Request, res: Response, next: NextFunction) {
-  const { authorization } = req.headers;
+export default async function authMiddleware(req: Request, res: Response, next: NextFunction) {
+  const { username, password } = req.body;
 
-  if (!authorization) {
-    return res.sendStatus(401);
+  const repository = await getRepository(User);
+
+  const user = await repository.findOne({ where: { username } });
+
+  if (!user) {
+    return res.status(400).json({ message: `Usuário ${username} inválido` });
   }
 
-  try {
-    const data = req.body;
-    
-    const { id } = data as TokenPayload;
+  const isValidPassword = await bcrypt.compare(password, user.password);
 
-    req.userId = id;
-
-    return next();
-  } catch {
-    return res.sendStatus(401);
+  if (!(username && isValidPassword)) {
+    return res.status(400).json({ message: 'Usuário ou senha incorretos' });
   }
+
+  return next();
 }

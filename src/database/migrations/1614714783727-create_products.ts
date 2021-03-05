@@ -8,11 +8,11 @@ export class createProducts1614714783727 implements MigrationInterface {
             columns: [
                 {
                     name: 'id',
-                    type: 'integer',
-                    unsigned: true,
+                    type: 'uuid',
                     isPrimary: true,
                     isGenerated: true,
-                    generationStrategy: 'increment'
+                    isUnique: true,
+                    generationStrategy: 'uuid'
                 },
                 {
                     name: 'name',
@@ -26,8 +26,27 @@ export class createProducts1614714783727 implements MigrationInterface {
                     name: 'price',
                     type: 'decimal',
                     precision: 2
+                },
+                {
+                    name: 'updated',
+                    type: 'timestamp',
+                    default: 'now()'
+                },
+                {
+                    name: 'user_id',
+                    type: 'integer'
                 }
             ],
+            foreignKeys: [
+                {
+                    name: 'ProductUser',
+                    columnNames: ['user_id'],
+                    referencedTableName: 'users',
+                    referencedColumnNames: ['id'],
+                    onUpdate: 'CASCADE',
+                    onDelete: 'CASCADE'
+                }
+            ]
         }));
     }
 
