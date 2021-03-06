@@ -1,25 +1,30 @@
 import { Request, Response, NextFunction } from 'express';
-import { getRepository } from 'typeorm';
-import bcrypt from 'bcryptjs';
+import jwt from 'jsonwebtoken';
 
-import User from '../models/User';
+interface TokenPayload {
+  id: string,
+  iat: number,
+  exp: number,
+}
 
 export default async function authMiddleware(req: Request, res: Response, next: NextFunction) {
-  const { username, password } = req.body;
+  const { authorization } = req.headers;
 
-  const repository = await getRepository(User);
-
-  const user = await repository.findOne({ where: { username } });
-
-  if (!user) {
-    return res.status(400).json({ message: `Usuário ${username} inválido` });
+  if (!authorization) {
+    return res.sendStatus(401).json({ message: "Autenticação Falha!"} )
   }
 
-  const isValidPassword = await bcrypt.compare(password, user.password);
+  const token = authorization.replace('Bearer', '').trim()
 
-  if (!(username && isValidPassword)) {
-    return res.status(400).json({ message: 'Usuário ou senha incorretos' });
+  try {
+    const data = jwt.verify(token, process.env.SECRET_KEY);
+
+    const { id } = data as TokenPayload;
+    req.userId = id
+    
+    return next();
+  } catch {
+    return res.sendStatus(401)
   }
 
-  return next();
 }

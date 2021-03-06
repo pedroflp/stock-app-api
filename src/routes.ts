@@ -5,21 +5,22 @@ import authMiddleware from './middlewares/authMiddleware';
 
 import ProductsController from './controllers/ProductsController';
 import UsersController from './controllers/UsersController';
+import AuthController from './controllers/AuthController';
 
 const routes = Router()
 const upload = multer();
 
-routes.post('/login', UsersController.authenticate)
+routes.post('/login', upload.none(), AuthController.authenticate)
 routes.post('/registrar', upload.none(), UsersController.store)
-routes.get('/perfil/:username', UsersController.index)
-routes.delete('/deletar/:username', UsersController.delete)
+routes.get('/usuarios', authMiddleware, UsersController.index)
+routes.delete('/deletar/:username', authMiddleware, UsersController.delete)
 
-routes.get('/estoque',  ProductsController.index)
-routes.get('/estoque/produto/:id', authMiddleware, ProductsController.show)
+routes.get('/estoque', authMiddleware, ProductsController.index)
+routes.get('/editar/:id', authMiddleware, ProductsController.show)
 
 routes.post('/criar-produto', upload.none(), ProductsController.create)
-routes.put('/produtos/:id', ProductsController.edit)
-routes.delete('/deletar/produto/:id', ProductsController.delete)
+routes.put('/editar/:id', upload.none(), authMiddleware, ProductsController.edit)
+routes.delete('/estoque/:id', authMiddleware, ProductsController.delete)
 
 
 export default routes;

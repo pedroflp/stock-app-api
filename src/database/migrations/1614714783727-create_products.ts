@@ -34,9 +34,10 @@ export class createProducts1614714783727 implements MigrationInterface {
                 },
                 {
                     name: 'user_id',
-                    type: 'integer'
+                    type: 'varchar'
                 }
             ],
+
             foreignKeys: [
                 {
                     name: 'ProductUser',

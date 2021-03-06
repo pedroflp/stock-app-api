@@ -20,9 +20,6 @@ export default class Product {
   @UpdateDateColumn()
   updated: Date;
 
-  @Column()
-  user_id: string;
-
   @ManyToOne(() => User, user => user.products)
   @JoinColumn({ name: 'user_id' })
   user: User;

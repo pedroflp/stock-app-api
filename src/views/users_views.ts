@@ -1,12 +1,12 @@
 import User from '../models/User';
+import productsViews from './products_views';
 
 export default {
   render(user: User) {
     return {
-      id: user.id,
       username: user.username,
       email: user.email,
-      products: user.products
+      products: productsViews.renderMany(user.products)
     };
   },
 

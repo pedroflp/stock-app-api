@@ -8,9 +8,15 @@ import productView from '../views/products_views';
 
 export default {
   async index(req: Request, res: Response) {
+    const { user_id } = req.body;
+
     const productsRepository = getRepository(Product);
 
-    const products = await productsRepository.find();
+    const products = await productsRepository.find({ where: { user_id } });
+
+    if(!products) {
+      return res.json({ message: "Id inválido" })
+    }
 
     return res.json(productView.renderMany(products));
   },
@@ -29,7 +35,6 @@ export default {
       name,
       quantity,
       price,
-      user_id
     } = req.body;
   
     const productsRepository = getRepository(Product);
@@ -38,16 +43,12 @@ export default {
       name,
       quantity,
       price,
-      user_id
     }
-
-    console.log(data)
 
     const schema = Yup.object().shape({
       name: Yup.string().required('Nome obrigatório').max(100),
       quantity: Yup.number().required('Quantidade obrigatória'),
       price: Yup.number().required('Preço obrigatório'),
-      user_id: Yup.string().required('ID de usuário Obrigatório')
     });
 
     await schema.validate(data, {
@@ -66,8 +67,13 @@ export default {
 
     const productsRepository = getRepository(Product);
 
+    const {
+      quantity,
+      price
+    } = req.body
+
     const product = await productsRepository.findOneOrFail(id);
-    productsRepository.merge(product, req.body);
+    productsRepository.merge(product, { quantity, price });
 
     await getRepository(Product).save(product);
   

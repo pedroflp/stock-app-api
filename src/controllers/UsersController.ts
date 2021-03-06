@@ -5,43 +5,13 @@ import * as Yup from 'yup';
 
 import User from '../models/User';
 
-import usersView from '../views/users_views';
-
 export default {
   async index(req: Request, res: Response) {
-    const username = req.params.username;
-
-    const usersRepository = getRepository(User);
-
-    const user = await usersRepository.findOneOrFail({ where: { username } });
-
-    return res.json(user);
-  },
-
-  async authenticate(req: Request, res: Response) {
-    const repository = await getRepository(User);
-
-    const { username, password } = req.body;
-    
-    const user = await repository.findOne({ where: { username } });
-    
-    if (!user) {
-      return res.json({ message: 'Usuário inválido' });
-    }
-
-    const isValidPassword = await bcrypt.compare(password, user.password);
-
-    if (!isValidPassword) {
-      return res.json({ message: 'Senha inválida' });
-    }
-
-    return res.json({ message: `Seja bem-vindo, ${user.username}!` })
-
+    return res.send({ userID: req.userId });
   },
 
   async store(req: Request, res: Response) {
     const user = await getRepository(User);
-
     const { username, email, password } = req.body;
 
     const userExists = await user.findOne({ where: { username, email } });
@@ -67,9 +37,7 @@ export default {
     })
 
     const newUser = user.create(data);
-
     await user.save(newUser);
-
     return res.json(newUser);
   },
 
