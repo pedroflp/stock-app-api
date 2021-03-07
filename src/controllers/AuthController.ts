@@ -3,6 +3,7 @@ import { getRepository } from 'typeorm';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
+import { AuthKey } from '../config/AuthKey';
 import User from '../models/User';
 
 export default {
@@ -22,14 +23,11 @@ export default {
       return res.sendStatus(401).json({ message: 'Senha inválida' });
     }
 
-    const token = jwt.sign({ id: user.id }, 'secret', {
-      expiresIn: '3d',
+    const token = jwt.sign({ id: user.id }, AuthKey, {
+      expiresIn: 259200,
     });
 
-    return res.json({ 
-      user, 
-      token
-    })
+    return res.json({ user, token })
 
   },
 }

@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { AuthKey } from '../config/AuthKey';
 
 interface TokenPayload {
   id: string,
@@ -17,7 +18,7 @@ export default async function authMiddleware(req: Request, res: Response, next: 
   const token = authorization.replace('Bearer', '').trim()
 
   try {
-    const data = jwt.verify(token, 'secret');
+    const data = jwt.verify(token, AuthKey);
 
     const { id } = data as TokenPayload;
     req.userId = id
