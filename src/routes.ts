@@ -12,15 +12,15 @@ const upload = multer();
 
 routes.post('/login', upload.none(), AuthController.authenticate)
 routes.post('/registrar', upload.none(), UsersController.store)
-routes.get('/usuarios', authMiddleware, UsersController.index)
+routes.get('/:username/estoque', UsersController.index)
 routes.delete('/deletar/:username', authMiddleware, UsersController.delete)
 
 routes.get('/estoque', authMiddleware, ProductsController.index)
-routes.get('/editar/:id', authMiddleware, ProductsController.show)
+routes.get('/editar/:id', ProductsController.show)
 
 routes.post('/criar-produto', upload.none(), ProductsController.create)
-routes.put('/editar/:id', upload.none(), authMiddleware, ProductsController.edit)
-routes.delete('/estoque/:id', authMiddleware, ProductsController.delete)
+routes.put('/editar/:id', upload.none(), ProductsController.edit)
+routes.delete('/estoque/:id', ProductsController.delete)
 
 
 export default routes;

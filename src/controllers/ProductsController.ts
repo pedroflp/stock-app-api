@@ -1,22 +1,16 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import * as Yup from 'yup';
-import multer from 'multer';
 
 import Product from '../models/Product';
 import productView from '../views/products_views';
 
 export default {
   async index(req: Request, res: Response) {
-    const { user_id } = req.body;
 
     const productsRepository = getRepository(Product);
 
-    const products = await productsRepository.find({ where: { user_id } });
-
-    if(!products) {
-      return res.json({ message: "Id inválido" })
-    }
+    const products = await productsRepository.find();
 
     return res.json(productView.renderMany(products));
   },
@@ -35,6 +29,7 @@ export default {
       name,
       quantity,
       price,
+      user_id
     } = req.body;
   
     const productsRepository = getRepository(Product);
@@ -43,12 +38,14 @@ export default {
       name,
       quantity,
       price,
+      user_id
     }
 
     const schema = Yup.object().shape({
       name: Yup.string().required('Nome obrigatório').max(100),
       quantity: Yup.number().required('Quantidade obrigatória'),
       price: Yup.number().required('Preço obrigatório'),
+      user_id: Yup.string().required()
     });
 
     await schema.validate(data, {

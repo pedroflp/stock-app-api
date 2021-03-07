@@ -1,13 +1,19 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-import bcrypt from 'bcryptjs';
 import * as Yup from 'yup';
 
 import User from '../models/User';
+import users_views from '../views/users_views';
 
 export default {
   async index(req: Request, res: Response) {
-    return res.send({ userID: req.userId });
+    const username = req.params.username;
+
+    const usersRepository = getRepository(User);
+
+    const user = await usersRepository.findOneOrFail({ where: { username }, relations: ['products']});
+
+    return res.json(users_views.render(user));
   },
 
   async store(req: Request, res: Response) {

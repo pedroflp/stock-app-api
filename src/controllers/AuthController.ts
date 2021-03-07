@@ -22,12 +22,11 @@ export default {
       return res.sendStatus(401).json({ message: 'Senha inválida' });
     }
 
-    const token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
+    const token = jwt.sign({ id: user.id }, 'secret', {
       expiresIn: '3d',
     });
 
     return res.json({ 
-      message: `Seja bem-vindo, ${user.username}!`,
       user, 
       token
     })
