@@ -16,7 +16,7 @@ routes.get('/:username/estoque', UsersController.index)
 routes.delete('/deletar/:username', authMiddleware, UsersController.delete)
 
 // routes.get('/estoque', authMiddleware, ProductsController.index)
-// routes.get('/editar/:id', ProductsController.show)
+routes.get('/:username/editar/:id', ProductsController.show)
 
 routes.post('/criar-produto', upload.none(), ProductsController.create)
 routes.put('/:username/editar/:id', upload.none(), ProductsController.edit)
