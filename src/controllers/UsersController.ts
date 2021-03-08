@@ -7,11 +7,11 @@ import users_views from '../views/users_views';
 
 export default {
   async index(req: Request, res: Response) {
-    const username = req.params.username;
+    const id = req.params.id;
 
     const usersRepository = getRepository(User);
 
-    const user = await usersRepository.findOneOrFail({ where: { username }, relations: ['products']});
+    const user = await usersRepository.findOneOrFail({ where: { id }, relations: ['products']});
 
     return res.json(users_views.render(user));
   },
@@ -23,7 +23,7 @@ export default {
     const userExists = await user.findOne({ where: { username, email } });
 
     if (userExists) {
-      return res.json({ message: 'Usuário ou email já em uso!'} );
+      return res.sendStatus(409).json({ message: 'Usuário ou email já em uso!'} );
     }
     
     const data = {

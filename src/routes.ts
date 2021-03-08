@@ -12,7 +12,7 @@ const upload = multer();
 
 routes.post('/login', upload.none(), AuthController.authenticate)
 routes.post('/registrar', upload.none(), UsersController.store)
-routes.get('/:username/estoque', UsersController.index)
+routes.get('/:id/estoque', UsersController.index)
 routes.delete('/deletar/:username', authMiddleware, UsersController.delete)
 
 // routes.get('/estoque', authMiddleware, ProductsController.index)
