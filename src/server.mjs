@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import 'express-async-errors';
 
-import routes from './routes';
+import routes from './routes.js';
 import errorHandler from './errors/handler';
 
 import './database/connection';
