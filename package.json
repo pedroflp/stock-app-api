@@ -22,7 +22,8 @@
     "sqlite3": "^5.0.2",
     "typeorm": "^0.2.31",
     "yarn": "^1.22.10",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "typescript": "npm i typescript -s"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
