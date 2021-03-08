@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { request, Router } from 'express';
 import multer from 'multer';
 
 import authMiddleware from './middlewares/authMiddleware';
@@ -9,6 +9,8 @@ import AuthController from './controllers/AuthController';
 
 const routes = Router()
 const upload = multer();
+
+routes.get('/');
 
 routes.post('/login', upload.none(), AuthController.authenticate)
 routes.post('/registrar', upload.none(), UsersController.store)
