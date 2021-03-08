@@ -18,6 +18,7 @@
     "path": "^0.12.7",
     "sqlite3": "^5.0.2",
     "typeorm": "^0.2.31",
+    "yarn": "^1.22.10",
     "yup": "^0.32.9"
   },
   "devDependencies": {
