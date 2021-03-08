@@ -6,9 +6,7 @@
   "scripts": {
     "start": "node src/server.ts",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --files src/server.ts",
-    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js",
-    "build": "tsc",
-    "postinstall": "npm run build"
+    "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
