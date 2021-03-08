@@ -10,11 +10,7 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "heroku-postbuild": "npm run build"
-  }
-  // "scripts": {
-  //   "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --files src/server.ts",
-  //   "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
-  // },
+  },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
