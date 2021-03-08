@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
-  "type": "module",
   "scripts": {
     "start": "node src/server.ts",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --files src/server.ts",
