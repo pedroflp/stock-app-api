@@ -1,1 +1,1 @@
-web:npm server.ts
+web:node server.ts
