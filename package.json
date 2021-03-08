@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "node src/server.ts",
+    "build": "tsc",
+    "start": "node src/server.js",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --files src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
@@ -20,7 +21,8 @@
     "sqlite3": "^5.0.2",
     "typeorm": "^0.2.31",
     "yarn": "^1.22.10",
-    "yup": "^0.32.9"
+    "yup": "^0.32.9",
+    "typescript": "npm i typescript -s"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.2",
