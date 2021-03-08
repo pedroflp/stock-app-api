@@ -4,6 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
+    "start": "yarn start",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --files src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
