@@ -10,8 +10,6 @@ import AuthController from './controllers/AuthController';
 const routes = Router()
 const upload = multer();
 
-routes.get('/');
-
 routes.post('/login', upload.none(), AuthController.authenticate)
 routes.post('/registrar', upload.none(), UsersController.store)
 routes.get('/:id/estoque', UsersController.index)
