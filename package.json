@@ -5,6 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "node src/server.ts",
+    "build": "tsc",
+    "postinstall": "npm run build",
     "dev": "ts-node-dev --transpile-only --ignore-watch node_modules --files src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
   },
