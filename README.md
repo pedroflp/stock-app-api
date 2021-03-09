@@ -1,4 +1,4 @@
-<h1 align="center">Stock Controller - Back End</h1>
+<h1 align="center">Stock API - Back End</h1>
 <p align="center">📦 API de controle de produtos do StockApp</p>
 
 -------------------
