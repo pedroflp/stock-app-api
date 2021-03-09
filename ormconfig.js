@@ -2,10 +2,10 @@ module.exports = {
   "type": "sqlite",
   "database": "./src/database/database.sqlite",
   "migrations": [
-    "./src/database/migrations/*.js"
+    "./dist/database/migrations/*.js"
   ],
   "entities": [
-    "./src/models/*.js"
+    "./dist/models/*.js"
   ],
   "cli": {
     "migrationsDir": "./src/database/migrations"
