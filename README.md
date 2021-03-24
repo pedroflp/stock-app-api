@@ -7,7 +7,7 @@
 
 **Versão da api:**
 
-![Node](https://img.shields.io/static/v1?label=&message=1.0.0&color=000&style=for-the-badge&logo=node.js)
+![Node](https://img.shields.io/static/v1?label=&message=1.0.1&color=000&style=for-the-badge&logo=node.js)
 
 **Tecnologias utilizadas:**
 
@@ -15,9 +15,6 @@
 ![Node](https://img.shields.io/static/v1?label=Back-end&message=Node.js&color=339933&style=for-the-badge&logo=node.js)
 ![Express](https://img.shields.io/static/v1?label=Back-end&message=Expressjs&color=000&style=for-the-badge&logo=express)
 ![Database](https://img.shields.io/static/v1?label=Data-base&message=SQLite&color=003B57&style=for-the-badge&logo=sqlite)
-
-
-**Acessar a api:** [Conectar a API](https://estoque-backend.herokuapp.com)
 
 -----------------
 
